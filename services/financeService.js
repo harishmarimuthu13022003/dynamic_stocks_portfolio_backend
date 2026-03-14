@@ -18,7 +18,7 @@ async function fetchStockData(symbol, exchange) {
     // Run the Python scraper script
     const scraperPath = path.join(__dirname, 'scraper.py');
     const pythonCmd = process.env.PYTHON_PATH || 'python';
-    
+
     exec(`${pythonCmd} "${scraperPath}" "${symbol}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Scraper error for ${symbol}:`, stderr || error.message);
