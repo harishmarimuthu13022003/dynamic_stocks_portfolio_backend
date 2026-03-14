@@ -1,0 +1,82 @@
+# Node modules
+
+node_modules/
+
+# Environment variables
+
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+
+jspm_packages/
+
+# Coverage directory used by testing tools
+
+coverage/
+
+# Optional cache directory
+
+.cache/
+.npm/
+
+# Node.js REPL history
+
+.node_repl_history
+
+# Build output
+
+dist/
+build/
+
+# Temporary files
+
+tmp/
+temp/
+
+# OS generated files
+
+.DS_Store
+Thumbs.db
+
+# IDE / Editor folders
+
+.vscode/
+.idea/
+
+# Optional: ignore local database files
+
+*.sqlite
+*.db
+
+# Optional: ignore uploaded files if any
+
+uploads/
+
+# Cache for scraping or API responses
+
+cache/
+
+# Lock files (optional depending on team rules)
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
