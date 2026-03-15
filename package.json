@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node --max-http-header-size=81920 server.js",
+    "dev": "nodemon --max-http-header-size=81920 server.js"
   },
   "main": "server.js",
   "keywords": [],
