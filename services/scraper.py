@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 import json
 import re
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 def fetch_stock_data(symbol): 
     result = {
         "cmp": None,
@@ -13,14 +16,12 @@ def fetch_stock_data(symbol):
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
     }
 
     # 1. Fetch CMP from Yahoo Finance
     try:
         yahoo_url = f"https://finance.yahoo.com/quote/{symbol}"
-        response = requests.get(yahoo_url, headers=headers, timeout=12)
+        response = requests.get(yahoo_url, headers=headers, timeout=15, verify=False)
         
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -58,7 +59,7 @@ def fetch_stock_data(symbol):
         google_ticker = f"{ticker_base}:{exchange}"
         
         google_url = f"https://www.google.com/finance/quote/{google_ticker}"
-        g_response = requests.get(google_url, headers=headers, timeout=12)
+        g_response = requests.get(google_url, headers=headers, timeout=15, verify=False)
         
         if g_response.status_code == 200:
             g_soup = BeautifulSoup(g_response.content, 'html.parser')
@@ -71,8 +72,8 @@ def fetch_stock_data(symbol):
                     result["cmp"] = float(price_div['data-last-price'])
                 
                 if not result["cmp"]:
-                    # Fallback classes
-                    for cls in ['YMlS3', 'fx1vbd', 'YMlS7e']:
+                    # Fallback classes (common for Google Finance)
+                    for cls in ['YMlS3', 'fx1vbd', 'YMlS7e', 'I67F9c', 'kf1YGe']:
                         p_div = g_soup.select_one(f'div.{cls}')
                         if p_div:
                             try:

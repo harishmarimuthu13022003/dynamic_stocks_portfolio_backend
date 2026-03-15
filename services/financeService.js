@@ -28,6 +28,7 @@ async function fetchStockData(symbol, exchange) {
 
       try {
         const data = JSON.parse(stdout);
+        console.log(`[Scrape] ${symbol} -> CMP: ₹${data.cmp || 'N/A'}, PE: ${data.peRatio}, Earnings: ${data.latestEarnings}`);
         resolve(data);
       } catch (parseError) {
         console.error(`Failed to parse scraper output for ${symbol}:`, stdout);
